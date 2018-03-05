@@ -12,12 +12,12 @@ class RoomList extends Component { //  creating a roomlist class component, and 
     this.roomsRef = this.props.firebase.database().ref('rooms') // object to interact with data stored in this path
   }
 
-onSubmit = (e) => {
-  e.preventDefault(); // preventing junk from printing in the URL
-    console.log(this.state);
-    this.roomsRef.push({
-    });
-}
+//onSubmit = (e) => {
+  //e.preventDefault(); // preventing junk from printing in the URL
+    //console.log(this.state);
+    //this.roomsRef.push({
+    //});
+//}
   render() { // using map to display data for each room
     return (
       <section className="RoomList">
@@ -52,13 +52,11 @@ onSubmit = (e) => {
      });
    }
 
-   //createRoom(newRoomName) {
-    //   this.roomsRef.push({
-      //   name: newRoomName,
-       //});
-       //this.setState({ newRoomName: '' });
-   //}
-
+   createRoom(e) { //added this but its still not pushing to firebase 
+       e.preventDefault();
+       const newRoomName = this.state.newRoomName;
+       this.roomsRef.push({ name: newRoomName });
+     }
 
 }
 export default RoomList;
