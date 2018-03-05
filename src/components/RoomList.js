@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
- //console.log("testing")
+
 
 class RoomList extends Component { //  creating a roomlist class component, and export it.
   constructor(props) { //initialize to use the state object
