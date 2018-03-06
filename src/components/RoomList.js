@@ -1,40 +1,55 @@
 import React, { Component } from 'react';
 import '../App.css';
 
-
 class RoomList extends Component { //  creating a roomlist class component, and export it.
   constructor(props) { //initialize to use the state object
     super(props);
     this.state = {  // use the react state object so that component will re-render itself each time user clicks each room
-      rooms: [] // store a list of rooms
-
+      rooms: [], // store a list of rooms
+      newRoomName: ''
     };
-    this.roomsRef = this.props.firebase.database().ref('rooms') // object to interact with data stored in this path
+
+    this.roomsRef = this.props.firebase.database().ref('rooms'); // object to interact with data stored in this path
+
   }
 
-  render() { // using map to display data for each room
+  createRoom(e) { //function to create new rooms
+      e.preventDefault();
+      this.roomsRef.push({ newRoomName: this.state.newRoomName });
+      this.setState({ newRoomName: "" });
+      //const newRoomName = this.state.newRoomName;
+      //this.roomsRef.push({ name: newRoomName });
+    }
+
+  render() {
     return (
-      <section className="RoomList">
-      <ul>
-         {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
-           <li key={room.key}>{room.name}</li>
-         ))}
 
-         <div className="newRoomName">
-         <ul>
-         New Room Name:
-          <form id="newroom" onSubmit={this.state.newRoomName}> {/*/creating forms*/}
-          <input type="text" name="newRoomName" placeholder="Room Name?" value={this.state.newRoomName} onChange={e => this.setState({ room: e.target.value })}/>
-          <button onClick={e => this.onSubmit(e)}>Submit</button>
-          </form>
-         </ul>
-           </div>
+      <div className="menu">
+            <form
+              className="newroomform"
+              onSubmit={(e) => this.createRoom(e) }>
 
-     </ul>
-     </section>
+              <label>
+                New Room Name:
+                  <input
+                  type="text"
+                  placeholder="Type new name"
+                  value={this.state.newRoomName}
+                  onChange={e => this.setState({ room: e.target.value })}
+                  />
+              </label>
+                  <input type="submit" value="Create Room" />
+            </form>
 
+        <ul>
+        {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
+          <li key={room.key}>{room.newRoomName}</li>
+        ))}
+        </ul>
+
+      </div>
     );
-  }
+        }
 
 
   componentDidMount() {
@@ -45,12 +60,6 @@ class RoomList extends Component { //  creating a roomlist class component, and 
 
      });
    }
-
-   createRoom(e) {
-      e.preventDefault();
-      const newRoomName = this.state.newRoomName;
-      this.roomsRef.push({ name: newRoomName });
-    }
 
 
 }
