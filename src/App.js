@@ -14,15 +14,18 @@ import * as firebase from 'firebase';
   };
   firebase.initializeApp(config);
 
-class App extends Component {
+  class App extends Component {
   constructor(props) {
       super(props);
 
       this.state = {
-      
+        helloWorld: 'howdy world',
+        currentRoom: ''
       }
-
   }
+        //<div className="newRoomName">
+
+        //</div>
 
   render() {
       return (
@@ -41,6 +44,12 @@ class App extends Component {
     }
 
 
+
+
+
+
+  //  );
+  //}
 }
 
 export default App;
