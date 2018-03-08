@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../App.css';
 
 class RoomList extends Component { //  creating a roomlist class component, and export it.
   constructor(props) { //initialize to use the state object
@@ -9,15 +8,17 @@ class RoomList extends Component { //  creating a roomlist class component, and 
       newRoomName: ''
     };
 
-    this.roomsRef = this.props.firebase.database().ref('rooms'); // object to interact with data stored in this path, something wrong here?
+    this.roomsRef = this.props.firebase.database().ref('rooms'); // object to interact with data stored in this path
 
   }
 
   createRoom(e) { //function to create new rooms
       e.preventDefault();
-      this.roomsRef.push({ newRoomName: this.state.newRoomName });
-      this.setState({ newRoomName: "" });
-      //const newRoomName = this.state.newRoomName;
+      const newRoomName = this.state.newRoomName;
+      //this.roomsRef.push({ newRoomName: this.state.newRoomName });
+      this.roomsRef.push({ name: newRoomName });
+    //  this.setState({ newRoomName: '' });
+
       //this.roomsRef.push({ name: newRoomName });
     }
 
@@ -35,22 +36,29 @@ class RoomList extends Component { //  creating a roomlist class component, and 
                   type="text"
                   placeholder="Type new name"
                   value={this.state.newRoomName}
-                  onChange={e => this.setState({ room: e.target.value })}
+                  //value={this.state.newRoomName}
+                  //onChange={e => this.setState({ room: e.target.value })}
+                  onChange={ (e) => this.getNameChange(e) }
                   />
               </label>
                   <input type="submit" value="Create Room" />
             </form>
 
-        <ul>
-        {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
-          <li key={room.key}>{room.newRoomName}</li>
-        ))}
-        </ul>
+            <section className="RoomList">
+                {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
+                <li key={room.key}>{room.name}</li>
+                    // {this.state.rooms.map ((room) => (  //to loop over the room array to render its contents
+                      // <h1>{room.key}</h1>
+                     ))}
+            </section>
 
       </div>
     );
         }
 
+        getNameChange(e) {
+           this.setState({ newRoomName: e.target.value });
+         }
 
   componentDidMount() {
      this.roomsRef.on('child_added', snapshot => {
