@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import RoomList from './components/RoomList';
+import MessageList from './components/MessageList';
 import * as firebase from 'firebase';
 
 // Initialize Firebase
@@ -12,37 +13,44 @@ import * as firebase from 'firebase';
     storageBucket: "blocchat-a2bd0.appspot.com",
     messagingSenderId: "48408474556"
   };
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
 
 
 class App extends Component {
 
   constructor(props) {
-      super(props);
-
-      this.state = {
-
-          currentRoom: ''
-      }
-
-  }
-
-  render() {
-      return (
-        <div className="App">
-
-          <header>
-          <h1> Basic Chat</h1>
-        </header>
-
-        <RoomList
-          firebase={firebase}
-        />
-
-        </div>
-      );
+    super(props);
+    this.state = {
+    currentRoom: ''
     }
-
 }
 
+getNameChange(roomName) {
+    this.setState(
+      { currentRoom: roomName },
+      function () {
+        console.log(this.state.currentRoom)
+      }
+    );
+  }
+
+render() {
+  return (
+    <div className="App">
+      <header>
+          <h1> Basic Chat</h1>
+      </header>
+
+    <RoomList
+          firebase={firebase}
+          getNameChange={this.getNameChange.bind(this)}
+
+        />
+
+
+    </div>
+  );
+}
+
+}
 export default App;
