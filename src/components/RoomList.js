@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
 
 class RoomList extends Component { //  creating a roomlist class component, and export it.
-  constructor(props) { //initialize to use the state object
+constructor(props) { //initialize to use the state object
     super(props);
     this.state = {  // use the react state object so that component will re-render itself each time user clicks each room
-      rooms: [], // store a list of rooms
-      newRoomName: ''
+    rooms: [], // store a list of rooms
+    newRoomName: ''
     };
 
-    this.roomsRef = this.props.firebase.database().ref('rooms'); // object to interact with data stored in this path
+this.roomsRef = this.props.firebase.database().ref('rooms'); // object to interact with data stored in this path
 
-  }
+}
 
-  createRoom(e) { //function to create new rooms
+
+
+createRoom(e) { //function to create new rooms
       e.preventDefault();
       const newRoomName = this.state.newRoomName;
-      //this.roomsRef.push({ newRoomName: this.state.newRoomName });
       this.roomsRef.push({ name: newRoomName });
-    //  this.setState({ newRoomName: '' });
 
-      //this.roomsRef.push({ name: newRoomName });
-    }
+}
 
   render() {
     return (
@@ -30,43 +29,46 @@ class RoomList extends Component { //  creating a roomlist class component, and 
               className="newroomform"
               onSubmit={(e) => this.createRoom(e) }>
 
-              <label>
+            <label>
                 New Room Name:
-                  <input
-                  type="text"
-                  placeholder="Type new name"
-                  value={this.state.newRoomName}
-                  //value={this.state.newRoomName}
-                  //onChange={e => this.setState({ room: e.target.value })}
-                  onChange={ (e) => this.getNameChange(e) }
-                  />
-              </label>
-                  <input type="submit" value="Create Room" />
+            <input
+              type="text"
+              placeholder="Type new name"
+              value={this.state.newRoomName}
+              onChange={ (e) => this.getNameChange(e) }
+            />
+            </label>
+              <input type="submit" value="Create Room" />
             </form>
 
-            <section className="RoomList">
-                {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
-                <li key={room.key}>{room.name}</li>
-                    // {this.state.rooms.map ((room) => (  //to loop over the room array to render its contents
-                      // <h1>{room.key}</h1>
-                     ))}
-            </section>
+        <section className="RoomList">
+            {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
+            <li key={room.key}>{room.name}</li>
+            ))}
+        </section>
 
-      </div>
-    );
-        }
+        <section className="newRoom">
+        {this.state.rooms.map ((room, i) => (
+              <li className="roomName" onClick={() => this.props.getNameChange(room.name)} key={i}>
+                {room.name}
+              </li>
+        ))}
+        </section>
 
-        getNameChange(e) {
-           this.setState({ newRoomName: e.target.value });
-         }
+       </div>
+     );
+   }
+
+  getNameChange(e) {
+  this.setState({ newRoomName: e.target.value });
+  }
 
   componentDidMount() {
-     this.roomsRef.on('child_added', snapshot => {
-       const room = snapshot.val();
-       room.key = snapshot.key;
-       this.setState({ rooms: this.state.rooms.concat( room ) })
-
-     });
+    this.roomsRef.on('child_added', snapshot => {
+    const room = snapshot.val();
+    room.key = snapshot.key;
+    this.setState({ rooms: this.state.rooms.concat( room ) })
+    });
    }
 
 
