@@ -4,14 +4,14 @@ import React, { Component } from 'react';
 class MessageList extends Component  { //  creating a roomlist class component, and export it.
 constructor(props) { //initialize to use the state object
     super(props);
+
     this.state = {  // use the react state object so that component will re-render itself each time user clicks each message
     messages: [], // store a list of messages
     newMessage: ''
   //  username: "", content: "", sentAt: "", messages: [], toEdit: ""
-};
+    }
 
-
-this.messagesRef = this.props.firebase.database().ref('messages') // object to interact with data stored in this path
+this.messagesRef = this.props.firebase.database().ref('messages'); // object to interact with data stored in this path
 
 }
 
