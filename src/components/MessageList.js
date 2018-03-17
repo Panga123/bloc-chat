@@ -5,58 +5,78 @@ class MessageList extends Component  { //  creating a roomlist class component, 
 constructor(props) { //initialize to use the state object
     super(props);
 
-    this.state = {  // use the react state object so that component will re-render itself each time user clicks each message
+    this.state = {  // initializes the state to whatever
     messages: [], // store a list of messages
-    newMessage: ''
-  //  username: "", content: "", sentAt: "", messages: [], toEdit: ""
-    }
+    newMessage: '',
+    displayedMessages: [],
+    username: '',
+    content: '',
+    sentAt: ''
+  }
 
-this.messagesRef = this.props.firebase.database().ref('messages'); // object to interact with data stored in this path
+  this.messagesRef = this.props.firebase.database().ref('messages'); // object to interact with data stored in this path
 
 }
 
-render() {
-  return (
+  filterMessages = (activeRoom) => { //component that shows messages along the list of available chat rooms
+    //  this.setState ({  //read the state
+      // let newMessagesOnDisplay = this.state.messages.filter(message => message.room === this.props.currentRoom);
+        //console.log(newMessagesOnDisplay);
+        //this.setState ({ messagesOnDisplay: newMessagesOnDisplay });
+    //  }
+    //})
 
-    <div className="activeroom" onClick={this.props.onClick}>
-
-  );
+    if (!activeRoom) { return }
+      this.setState({ displayedMessages: this.state.Messages.filter( message => message.roomId === activeRoom.key ) }, () => this.scrollToBottom() );
+      console.log("testing here");
 }
 
-//render() {
-  //return (
-
-    //<div>
-        //<h2 onClick={this.filterMessagesByRoom}>Current Room: {this.props.currentRoom}</h2>
-
-    //  <ul>
-      //    {this.state.messagesOnDisplay.map( (message, index) =>
-
-        //    <DisplayedMessages
-          //    message={message}
-            //  index={index}
-            ///>
-          //})
-
-      //  </ul>
-      //</div>
-//  )
+//createMessage(e) { //function to create new list of messages
+  //    e.preventDefault()
+    //  const newMessage = this.state.newMessage;
+      //this.messagesRef.push({ name: newMessage });
 //}
 
-createMessage(e) { //function to create and store a list of messages
-      e.preventDefault();
-      const newMessage = this.state.newMessage;
-      this.messagesRef.push({ name: newMessage });
+  componentDidMount() {
+      this.messagesRef.on('child_added', snapshot => {
+          const messages = snapshot.val();
+          messages.key = snapshot.key;
+          this.setState({ messages: this.state.messages.concat( messages ) });
+      });
+  }
 
-}
+  render() {
+      return (
 
-componentDidMount() {
-  this.MessagesRef.on('child_added', snapshot => {
-  const messages = snapshot.val();
-  messages.key = snapshot.key;
-  this.setState({ messages: this.state.messages.concat( messages ) })
-  });
-}
+
+      <div>
+        <h2 onClick={this.filterMessages}>Current Room: {this.props.activeRoom}</h2>
+          <section className="MessageList">
+
+          {this.state.messages.map ((message, i) => (  //to loop over the message array to render its contents Q: why state and not props?
+
+          <ul>
+            <li key={message.key}>{message.content}</li>
+            <li key={message.key}>{message.roomId}</li>
+            <li key={message.key}>{message.sentAt}</li>
+            <li key={message.key}>{message.userName}</li>
+          </ul>
+
+          ))}
+          
+          </section>
+     </div>
+          //<section className="filterMessages">
+            //  {this.state.messages.map ((message, i) => (
+              //      <li className="messagename" onClick={() => this.props.filterMessages(message.content)} key={i}>
+
+                //    </li>
+              //))}
+              //</section>
+
+
+    );
+  }
 
 }
 export default MessageList;

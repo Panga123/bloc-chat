@@ -37,15 +37,21 @@ getNameChange(roomName) {
 render() {
   return (
     <div className="App">
+
       <header>
           <h1> Basic Chat</h1>
       </header>
 
-    <RoomList
+      <RoomList
           firebase={firebase}
           getNameChange={this.getNameChange.bind(this)}
+       />
 
+       <MessageList
+          firebase={firebase}
+          activeRoom={this.state.activeRoom} user={this.state.user}
         />
+
 
 
     </div>
