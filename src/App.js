@@ -19,9 +19,10 @@ firebase.initializeApp(config);
 class App extends Component {
 
   constructor(props) {
+
     super(props);
     this.state = {
-    currentRoom: ''
+    activeRoom: ''
     }
 }
 
@@ -30,27 +31,35 @@ getNameChange(roomName) {
       { currentRoom: roomName },
       function () {
         console.log(this.state.currentRoom)
+
       }
     );
   }
 
-render() {
-  return (
-    <div className="App">
 
-      <header>
-          <h1> Basic Chat</h1>
-      </header>
+  selectRoom (room)  {
+    this.setState({activeRoom: room})
+    console.log(this.state.activeRoom);
 
-      <RoomList
-          firebase={firebase}
-          getNameChange={this.getNameChange.bind(this)}
-       />
+  }
 
-       <MessageList
-          firebase={firebase}
-          activeRoom={this.state.activeRoom} user={this.state.user}
-        />
+  render() {
+    return (
+      <div className="App">
+
+        <header>
+            <h1> Basic Chat</h1>
+        </header>
+
+        <RoomList
+            firebase={firebase}
+            selectRoom={this.selectRoom.bind(this)}
+         />
+
+         <MessageList
+            firebase={firebase}
+            activeRoom={this.state.activeRoom} user={this.state.user}
+          />
 
 
 

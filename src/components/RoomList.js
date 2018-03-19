@@ -4,15 +4,20 @@ class RoomList extends Component { //  creating a roomlist class component, and 
 constructor(props) { //initialize to use the state object
     super(props);
     this.state = {  // use the react state object so that component will re-render itself each time user clicks each room
-    rooms: [], // store a list of rooms
-    newRoomName: ''
+      rooms: [], // store a list of rooms
+      newRoomName: ''
     };
 
-this.roomsRef = this.props.firebase.database().ref('rooms'); // object to interact with data stored in this path
+    this.roomsRef = this.props.firebase.database().ref('rooms'); // object to interact with data stored in this path
 
 }
 
 
+
+
+getNameChange(e) {
+  this.setState({ newRoomName: e.target.value });
+}
 
 createRoom(e) { //function to create new rooms
       e.preventDefault();
@@ -43,31 +48,22 @@ createRoom(e) { //function to create new rooms
 
         <section className="RoomList">
             {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
-            <li key={room.key}>{room.name}</li>
-            ))}
-        </section>
+            <li key={room.key} onClick={ (e) => this.props.selectRoom(room) }>{room.name}</li>
 
-        <section className="newRoom">
-        {this.state.rooms.map ((room, i) => (
-              <li className="roomName" onClick={() => this.props.getNameChange(room.name)} key={i}>
-                {room.name}
-              </li>
-        ))}
+            ))}
         </section>
 
        </div>
      );
    }
 
-  getNameChange(e) {
-  this.setState({ newRoomName: e.target.value });
-  }
+
 
   componentDidMount() {
     this.roomsRef.on('child_added', snapshot => {
-    const room = snapshot.val();
-    room.key = snapshot.key;
-    this.setState({ rooms: this.state.rooms.concat( room ) })
+      const room = snapshot.val();
+      room.key = snapshot.key;
+      this.setState({ rooms: this.state.rooms.concat( room ) })
     });
    }
 
