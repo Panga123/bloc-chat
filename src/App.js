@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import RoomList from './components/RoomList';
+import User from './components/User';
 import MessageList from './components/MessageList';
 import * as firebase from 'firebase';
 
@@ -22,7 +23,8 @@ class App extends Component {
 
     super(props);
     this.state = {
-    activeRoom: ''
+    activeRoom: '',
+    user: ''
     }
 }
 
@@ -36,13 +38,16 @@ getNameChange(roomName) {
     );
   }
 
+  setUser(user) {
+     this.setState({user: user});
+ }
 
   selectRoom (room)  {
     this.setState({activeRoom: room})
     console.log(this.state.activeRoom);
 
   }
-
+//Q: Why does signIn need to be in App and not user? (had it there first)
   render() {
     return (
       <div className="App">
@@ -61,11 +66,20 @@ getNameChange(roomName) {
             activeRoom={this.state.activeRoom} user={this.state.user}
           />
 
+          <User
+            firebase={firebase}
+            setUser={this.setUser.bind(this)} user={this.state.user} />
+
+
+
 
 
     </div>
   );
 }
-
+//  <User
+  //   firebase={firebase}
+    // signIn={this.signIn.bind(this)}
+   ///>
 }
 export default App;

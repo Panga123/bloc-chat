@@ -18,6 +18,7 @@ constructor(props) { //initialize to use the state object
 }
 
 
+
 displayMessage(e) { //function to display  message
      e.preventDefault()
       const displayedMessage = this.state.displayedMessage;
