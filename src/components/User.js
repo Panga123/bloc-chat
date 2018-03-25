@@ -19,7 +19,15 @@ signIn(e) { //function to display sign in button
 }
 
 signOut(e) { //function to display sign out button
-    this.props.firebase.auth().signOut();
+  //  this.props.firebase.auth().signOut();
+    //console.log("This is printing correctly")
+      this.props.firebase.auth().signOut().then(function() {
+          console.log('Signed Out');
+      },
+      function(error) {
+          console.error('Sign Out Error', error);
+      });
+
 }
 
 render () {

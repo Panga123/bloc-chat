@@ -68,10 +68,8 @@ getNameChange(roomName) {
 
           <User
             firebase={firebase}
-            setUser={this.setUser.bind(this)} user={this.state.user} />
-
-
-
+            setUser={this.setUser.bind(this)} user={this.state.user}
+          />
 
 
     </div>
