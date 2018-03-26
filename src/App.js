@@ -24,7 +24,8 @@ class App extends Component {
     super(props);
     this.state = {
     activeRoom: '',
-    user: ''
+    user: '',
+    currentUser: 'Guest'
     }
 }
 
@@ -38,9 +39,19 @@ getNameChange(roomName) {
     );
   }
 
-  setUser(user) {
-     this.setState({user: user});
+  setUser(user) {  //setuser method to store user info. Then pass method to user component as prop below
+     this.setState ({user: user});
  }
+
+// setUser = (e) => {
+//  e.preventDefault();
+//  const newUserName = e;
+////  this.setState({ currentUser: newUserName })
+//}
+ //displayName(user) {
+  //  this.setState({displayName: user});
+    //console.log(firebase.User);
+//}
 
   selectRoom (room)  {
     this.setState({activeRoom: room})
@@ -49,6 +60,8 @@ getNameChange(roomName) {
   }
 //Q: Why does signIn need to be in App and not user? (had it there first)
   render() {
+
+
     return (
       <div className="App">
 
@@ -63,21 +76,23 @@ getNameChange(roomName) {
 
          <MessageList
             firebase={firebase}
-            activeRoom={this.state.activeRoom} user={this.state.user}
+            activeRoom={this.state.activeRoom}
+            user={this.state.user}
+           //currentUser={this.state.currentUser}
           />
 
           <User
             firebase={firebase}
-            setUser={this.setUser.bind(this)} user={this.state.user}
+            setUser={this.setUser.bind(this)}
+            //user={this.state.user}
+            //welcome={currentUser}
+            displayName={this.state.user.displayName} //its on the state not on prop
           />
 
 
     </div>
   );
 }
-//  <User
-  //   firebase={firebase}
-    // signIn={this.signIn.bind(this)}
-   ///>
+
 }
 export default App;
