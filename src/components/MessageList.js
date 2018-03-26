@@ -33,15 +33,18 @@ createMessage(e) { //function to create and store a list of messages
 }
 
   componentWillReceiveProps(nextProps) { //updates when we receive props
-    this.setState({ messages: [] });
+    //this.setState({ messages: [] });
     let messages = [];
-    this.messagesRef.orderByChild('roomId').equalTo(nextProps.activeRoom.key).on("child_added", snapshot => {
-      console.log(snapshot.val());
-      const message = snapshot.val();
-      message.key = snapshot.key;
-      messages.push(message);
-      this.setState({ messages: messages });
-    }); //search by room ID and find the id that equals this and do the following
+    if (nextProps.activeRoom.key) {
+      this.messagesRef.orderByChild('roomId').equalTo(nextProps.activeRoom.key).on("child_added", snapshot => {
+        console.log(snapshot.val());
+        const message = snapshot.val();
+        message.key = snapshot.key;
+        messages.push(message);
+        this.setState({ messages: messages });
+      }); //search by room ID and find the id that equals this and do the following
+    }
+
   }
 
 

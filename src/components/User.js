@@ -4,21 +4,31 @@ class User extends Component  { //  creating a messagelist class component, and 
 constructor(props) { //initialize to use the state object
     super(props);
 
-    this.state = {  // initializes the state to whatever
-      user: [], // store a list of users and additional elements from firebase
-     }
+  //  this.state = {  // initializes the state to whatever
+  //    user: [], // store a list of users and additional elements from firebase
+  //   }
 
-    this.userRef = this.props.firebase.database().ref('user'); // object to interact with data stored in this path
-
+  //  this.userRef = this.props.firebase.database().ref('user'); // object to interact with data stored in this path
 }
 
-signIn(e) { //function to display sign in button
+componentDidMount () { // Q: unclear on this
+  // listen for authentication state change (login, logout, etc)
+  // when authentication changes, grab the user object, pass it back up to the parent component
+  // parent component then updates its own state with the user data
+  this.props.firebase.auth().onAuthStateChanged( user => {
+    console.log(user);
+    this.props.setUser(user);
+  });
+}
+
+  signIn(e) { //function to display sign in button
     // e.preventDefault()
      const provider = new this.props.firebase.auth.GoogleAuthProvider();
      this.props.firebase.auth().signInWithPopup( provider );
-}
 
-signOut(e) { //function to display sign out button
+   }
+
+   signOut(e) { //function to display sign out button
   //  this.props.firebase.auth().signOut();
     //console.log("This is printing correctly")
       this.props.firebase.auth().signOut().then(function() {
@@ -26,17 +36,23 @@ signOut(e) { //function to display sign out button
       },
       function(error) {
           console.error('Sign Out Error', error);
-      });
+        });
 
 }
 
-render () {
-  return (
-    <div>
-      <button onClick={this.signIn.bind(this)}>Login With Google</button>
-      <button onClick={this.signOut.bind(this)}>Logout Now</button>
-    </div>
-  )
+  render () {
+    return (
+
+      <div>
+
+        <button onClick={this.signIn.bind(this)}>Login With Google</button>
+        <button onClick={this.signOut.bind(this)}>Logout Now</button>
+        <h2>User: {this.props.displayName}</h2>
+
+     </div>
+
+    //<div>{this.props.user.displayName}</div>
+    )
 }
  //<button className="sign-in-out" onClick={ this.props.user ? this.signOut.bind(this) : this.signIn.bind(this) }>
 //<button onClick={this.props.signIn}>Login With Google</button>
