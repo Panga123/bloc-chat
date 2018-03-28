@@ -24,8 +24,8 @@ class App extends Component {
     super(props);
     this.state = {
     activeRoom: '',
-    user: '',
-    currentUser: 'Guest'
+    user: ''
+  //  currentUser: 'Guest'
     }
 }
 
@@ -48,10 +48,10 @@ getNameChange(roomName) {
 //  const newUserName = e;
 ////  this.setState({ currentUser: newUserName })
 //}
- //displayName(user) {
-  //  this.setState({displayName: user});
-    //console.log(firebase.User);
-//}
+ displayName(user) {
+    this.setState({displayName: user});
+    console.log(firebase.User);
+}
 
   selectRoom (room)  {
     this.setState({activeRoom: room})
@@ -78,15 +78,14 @@ getNameChange(roomName) {
             firebase={firebase}
             activeRoom={this.state.activeRoom}
             user={this.state.user}
-           //currentUser={this.state.currentUser}
+
           />
 
           <User
             firebase={firebase}
             setUser={this.setUser.bind(this)}
-            //user={this.state.user}
-            //welcome={currentUser}
-            displayName={this.state.user.displayName} //its on the state not on prop
+          //  displayName={this.state.user.displayName}
+            displayName={this.state.displayName}
           />
 
 
