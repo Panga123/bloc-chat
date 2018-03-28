@@ -48,10 +48,10 @@ getNameChange(roomName) {
 //  const newUserName = e;
 ////  this.setState({ currentUser: newUserName })
 //}
- displayName(user) {
-    this.setState({displayName: user});
-    console.log(firebase.User);
-}
+// displayName(user) {
+  //  this.setState({displayName: user});
+    //console.log(firebase.user);
+//}
 
   selectRoom (room)  {
     this.setState({activeRoom: room})
@@ -85,7 +85,7 @@ getNameChange(roomName) {
             firebase={firebase}
             setUser={this.setUser.bind(this)}
           //  displayName={this.state.user.displayName}
-            displayName={this.state.displayName}
+            displayName={this.state.user.displayName}
           />
 
 
