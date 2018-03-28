@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 
 class User extends Component  { //  creating a messagelist class component, and export it.
-constructor(props) { //initialize to use the state object
-    super(props);
+//constructor(props) { //initialize to use the state object
+  //  super(props);
 
   //  this.state = {  // initializes the state to whatever
   //    user: [], // store a list of users and additional elements from firebase
   //   }
 
   //  this.userRef = this.props.firebase.database().ref('user'); // object to interact with data stored in this path
-}
+//}
+
 
 componentDidMount () { // Q: unclear on this
   // listen for authentication state change (login, logout, etc)
