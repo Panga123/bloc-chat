@@ -7,17 +7,21 @@ constructor(props) { //initialize to use the state object
     this.state = {  // initializes the state to whatever
       messages: [], // store a list of messages and additional elements from firebase
       displayedMessage: '',
-      newMessage: '',
-      username: '',
       content: '',
       sentAt: ''
     }
+
+//STUCK: Populate username property with the current user's username.
+//You'll need to pass user down as a prop from the App component.
 
     this.messagesRef = this.props.firebase.database().ref('messages'); // object to interact with data stored in this path
 
 }
 
 
+getContentChange(e) {
+  this.setState({ content: e.target.value });
+}
 
 displayMessage(e) { //function to display  message
      e.preventDefault()
@@ -25,10 +29,20 @@ displayMessage(e) { //function to display  message
       this.messagesRef.push({ name: displayedMessage });
 }
 
-createMessage(e) { //function to create and store a list of messages
+createMessage(e) { //2. This is a function to create and store a list of messages
       e.preventDefault();
-      const newMessage = this.state.newMessage;
-      this.messagesRef.push({ name: newMessage });
+      console.log(this.state.content);
+      console.log(this.props.user.displayName);
+      console.log(this.props.activeRoom.key);
+
+      //console.log(this.props.firebase.database.TIMESTAMP);
+      //create variable with object that stores content username and roomID then pass to firebase
+      const newMessage = {
+        content: this.state.content,
+        username: this.props.user.displayName,
+        roomId: this.props.activeRoom.key
+      };
+      this.messagesRef.push(newMessage);
 
 }
 
@@ -47,14 +61,31 @@ createMessage(e) { //function to create and store a list of messages
 
   }
 
-
+//1. Render a form to manually submit new message
   render() {
       return (
 
+    <div>
+        <form
+          className="newmessageform"
+          onSubmit={(e) => this.createMessage(e) }>
 
-      <div>
+        <label>
+            New Message:
+        <input
+          type="text"
+          placeholder="Type your message!"
+          value={this.state.content}
+          onChange={ (e) => this.getContentChange(e) }
+        />
+        </label>
+          <input type="submit" value="Create Message" />
+        </form>
+
+
+
         <h2>Current Room: {this.props.activeRoom.name}</h2>
-
+        <h2>Current Message: {this.props.newMessage}</h2>
           <section className="MessageList">
           <ul>
           {this.state.messages.map ((message, i) => (  //to loop over the message array to render its contents Q: why state and not props?

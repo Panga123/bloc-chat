@@ -13,8 +13,6 @@ constructor(props) { //initialize to use the state object
 }
 
 
-
-
 getNameChange(e) {
   this.setState({ newRoomName: e.target.value });
 }

@@ -23,11 +23,20 @@ class App extends Component {
 
     super(props);
     this.state = {
-    activeRoom: '',
-    user: ''
-  //  currentUser: 'Guest'
+      activeRoom: '',
+      user: ''
     }
 }
+
+getMessageChange(newMessage) {
+    this.setState(
+      { currentMessage: newMessage },
+      function () {
+        console.log(this.state.currentMessage)
+
+      }
+    );
+  }
 
 getNameChange(roomName) {
     this.setState(
@@ -53,10 +62,8 @@ getNameChange(roomName) {
     //console.log(firebase.user);
 //}
 
-  selectRoom (room)  {
+  selectRoom (room)  { //highlight the room that you clicked
     this.setState({activeRoom: room})
-    console.log(this.state.activeRoom);
-
   }
 //Q: Why does signIn need to be in App and not user? (had it there first)
   render() {
@@ -86,6 +93,8 @@ getNameChange(roomName) {
             setUser={this.setUser.bind(this)}
           //  displayName={this.state.user.displayName}
             displayName={this.state.user.displayName}
+            user={this.props.user}
+
           />
 
 
