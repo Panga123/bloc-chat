@@ -91,9 +91,9 @@ getNameChange(roomName) {
           <User
             firebase={firebase}
             setUser={this.setUser.bind(this)}
-          //  displayName={this.state.user.displayName}
             displayName={this.state.user.displayName}
             user={this.props.user}
+          //  user={this.state.user}
 
           />
 

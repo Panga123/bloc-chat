@@ -12,7 +12,7 @@ class User extends Component  { //  creating a messagelist class component, and 
 //}
 
 
-componentDidMount () { // Q: unclear on this
+componentDidMount () {
   // listen for authentication state change (login, logout, etc)
   // when authentication changes, grab the user object, pass it back up to the parent component
   // parent component then updates its own state with the user data
