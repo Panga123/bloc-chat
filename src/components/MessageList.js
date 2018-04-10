@@ -31,6 +31,8 @@ displayMessage(e) { //function to display  message
 
 createMessage(e) { //2. This is a function to create and store a list of messages
       e.preventDefault();
+
+
       console.log(this.state.content);
       console.log(this.props.user.displayName);
       console.log(this.props.activeRoom.key);
@@ -42,13 +44,20 @@ createMessage(e) { //2. This is a function to create and store a list of message
         username: this.props.user.displayName,
         roomId: this.props.activeRoom.key
       };
+
+
       this.messagesRef.push(newMessage);
 
 }
 
-  componentWillReceiveProps(nextProps) { //updates when we receive props
+
+
+componentWillReceiveProps(nextProps) { //updates when we receive props
     //this.setState({ messages: [] });
     let messages = [];
+
+
+
     if (nextProps.activeRoom.key) {
       this.messagesRef.orderByChild('roomId').equalTo(nextProps.activeRoom.key).on("child_added", snapshot => {
         console.log(snapshot.val());
@@ -59,7 +68,7 @@ createMessage(e) { //2. This is a function to create and store a list of message
       }); //search by room ID and find the id that equals this and do the following
     }
 
-  }
+}
 
 //1. Render a form to manually submit new message
   render() {
@@ -76,16 +85,22 @@ createMessage(e) { //2. This is a function to create and store a list of message
           type="text"
           placeholder="Type your message!"
           value={this.state.content}
-          onChange={ (e) => this.getContentChange(e) }
+
+
+            onChange={ (e) => this.getContentChange(e) }
+
         />
         </label>
+
           <input type="submit" value="Create Message" />
+
         </form>
 
 
 
         <h2>Current Room: {this.props.activeRoom.name}</h2>
         <h2>Current Message: {this.props.newMessage}</h2>
+        
           <section className="MessageList">
           <ul>
           {this.state.messages.map ((message, i) => (  //to loop over the message array to render its contents Q: why state and not props?
@@ -96,7 +111,7 @@ createMessage(e) { //2. This is a function to create and store a list of message
           </section>
      </div>
 
-
+//<h2>Current Message: {this.props.user && this.props.user.newMessage}</h2>
 
     );
   }

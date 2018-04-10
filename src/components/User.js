@@ -36,9 +36,9 @@ componentDidMount () {
       //}
    }
 
+
+
    signOut(e) { //function to display sign out button
-  //  this.props.firebase.auth().signOut();
-    //console.log("This is printing correctly")
 
       this.props.firebase.auth().signOut().then(function() {
 
@@ -50,13 +50,12 @@ componentDidMount () {
           console.error('Sign Out Error', error);
         });
 
-}
+    }
 
   render () {
     return (
 
       <div>
-
         <button onClick={this.signIn.bind(this)}>Login With Google</button>
         <button onClick={this.signOut.bind(this)}>Logout Now</button>
         <h2>User: {this.props.displayName}</h2>
