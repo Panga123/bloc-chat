@@ -21,10 +21,10 @@ class App extends Component {
 
   constructor(props) {
 
-    super(props);
+    super(props); // initialize empty user property on state of constructor
     this.state = {
       activeRoom: '',
-      user: ''
+      user: 'Guest'
     }
 }
 
@@ -48,7 +48,7 @@ getNameChange(roomName) {
     );
   }
 
-  setUser(user) {  //setuser method to store user info. Then pass method to user component as prop below
+  setUser(user) {  //setuser method to store/change user info. Then pass method to user component as prop below
      this.setState ({user: user});
  }
 
@@ -92,7 +92,8 @@ getNameChange(roomName) {
             firebase={firebase}
             setUser={this.setUser.bind(this)}
             displayName={this.state.user.displayName}
-            user={this.props.user}
+              user={this.props.user}
+
           //  user={this.state.user}
 
           />
