@@ -81,13 +81,16 @@ getNameChange(roomName) {
             selectRoom={this.selectRoom.bind(this)}
          />
 
-         <MessageList
 
-            firebase={firebase}
-            activeRoom={this.state.activeRoom}
-            user={this.state.user}
+         {
+           this.activeRoom && <MessageList
+           firebase={firebase}
+           activeRoom={this.state.activeRoom}
+           user={this.state.user}
+        />
+         }
 
-          />
+
 
           <User
             firebase={firebase}
@@ -95,7 +98,7 @@ getNameChange(roomName) {
             displayName={this.state.user.displayName}
               user={this.props.user}
 
-          //  user={this.state.user}
+
 
           />
 
