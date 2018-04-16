@@ -52,7 +52,9 @@ componentDidMount () {
 
     }
 
-  render () {
+render () {
+
+
     return (
 
       <div>
@@ -66,6 +68,7 @@ componentDidMount () {
 
     //<div>{this.props.user.displayName}</div>
     )
+
 }
  //<button className="sign-in-out" onClick={ this.props.user ? this.signOut.bind(this) : this.signIn.bind(this) }>
 //<button onClick={this.props.signIn}>Login With Google</button>

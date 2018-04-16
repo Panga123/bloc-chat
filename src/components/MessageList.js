@@ -9,6 +9,7 @@ constructor(props) { //initialize to use the state object
       displayedMessage: '',
       content: '',
       sentAt: ''
+
     }
 
 //STUCK: Populate username property with the current user's username.
@@ -46,7 +47,9 @@ createMessage(e) { //2. This is a function to create and store a list of message
       };
 
 
+
       this.messagesRef.push(newMessage);
+   
 
 }
 
@@ -100,7 +103,7 @@ componentWillReceiveProps(nextProps) { //updates when we receive props
 
         <h2>Current Room: {this.props.activeRoom.name}</h2>
         <h2>Current Message: {this.props.newMessage}</h2>
-        
+
           <section className="MessageList">
           <ul>
           {this.state.messages.map ((message, i) => (  //to loop over the message array to render its contents Q: why state and not props?

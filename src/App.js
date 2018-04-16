@@ -76,21 +76,23 @@ getNameChange(roomName) {
             <h1> Basic Chat</h1>
         </header>
 
-        <RoomList
-            firebase={firebase}
-            selectRoom={this.selectRoom.bind(this)}
-         />
+        {
+        this.state.user !== 'Guest' && <RoomList
+             firebase={firebase}
+             selectRoom={this.selectRoom.bind(this)}
+
+          />
+        }
 
 
          {
-           this.activeRoom && <MessageList
-           firebase={firebase}
-           activeRoom={this.state.activeRoom}
-           user={this.state.user}
-        />
-         }
+         this.state.activeRoom && <MessageList
+          firebase={firebase}
+          activeRoom={this.state.activeRoom}
+          user={this.state.user}
 
-
+          />
+          }
 
           <User
             firebase={firebase}

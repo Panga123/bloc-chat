@@ -27,6 +27,7 @@ createRoom(e) { //function to create new rooms
   render() {
     return (
 
+
       <div className="menu">
             <form
               className="newroomform"
@@ -45,14 +46,21 @@ createRoom(e) { //function to create new rooms
             </form>
 
         <section className="RoomList">
+
+
             {this.state.rooms.map ((room, i) => (  //to loop over the room array to render its contents Q: why state and not props?
-            <li key={room.key} onClick={ (e) => this.props.selectRoom(room) }>{room.name}</li>
+
+                <li
+                key={room.key} onClick={ (e) => this.props.selectRoom(room) }>{room.name}</li>
+
 
             ))}
+
         </section>
 
        </div>
      );
+   
    }
 
 
