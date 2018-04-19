@@ -74,7 +74,9 @@ getNameChange(roomName) {
 
         <header>
             <h1> Basic Chat</h1>
+            <h2> Log in using the buttons below:</h2>
         </header>
+
 
         {
         this.state.user !== 'Guest' && <RoomList
@@ -101,8 +103,8 @@ getNameChange(roomName) {
               user={this.props.user}
 
 
-
           />
+
 
 
     </div>

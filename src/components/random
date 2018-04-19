@@ -36,9 +36,9 @@ componentDidMount () {
       //}
    }
 
-
-
    signOut(e) { //function to display sign out button
+  //  this.props.firebase.auth().signOut();
+    //console.log("This is printing correctly")
 
       this.props.firebase.auth().signOut().then(function() {
 
@@ -50,37 +50,57 @@ componentDidMount () {
           console.error('Sign Out Error', error);
         });
 
-    }
+}
 
-
-
-render () {
-
-
-
+  render () {
     return (
 
       <div>
 
-      <button onClick={this.signIn.bind(this)}>Login With Google</button>
-      <button onClick={this.signOut.bind(this)}>Logout Now</button>
-      <h2>User: {this.props.displayName}</h2>
+        <button onClick={this.signIn.bind(this)}>Login With Google</button>
+        <button onClick={this.signOut.bind(this)}>Logout Now</button>
+        <h2>User: {this.props.displayName}</h2>
+
+
 
      </div>
 
     //<div>{this.props.user.displayName}</div>
-    //      <button className="sign-in-out" onClick={ this.props.user ? this.signOut.bind(this) : this.signIn.bind(this) }>
-      //      { this.props.user ? 'Logout Now' : 'Login with Google' }
-        //  </button>
-
     )
-
-
-
 }
-
-
  //<button className="sign-in-out" onClick={ this.props.user ? this.signOut.bind(this) : this.signIn.bind(this) }>
 //<button onClick={this.props.signIn}>Login With Google</button>
 }
 export default User;
+
+//// and on apps.js
+
+<User
+  firebase={firebase}
+  setUser={this.setUser.bind(this)}
+  displayName={this.state.user.displayName}
+    user={this.props.user}
+
+Under Messages component
+
+    //
+
+
+    // <MessageList
+    // firebase={firebase}
+     //activeRoom={this.state.activeRoom}
+     //user={this.state.user}
+ />
+
+
+
+     />
+
+
+  />
+
+
+  <RoomList
+       firebase={firebase}
+       selectRoom={this.selectRoom.bind(this)}
+    />
