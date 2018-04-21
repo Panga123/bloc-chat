@@ -46,16 +46,13 @@ class MessageList extends Component  { //  creating a messagelist class componen
       roomId: this.props.activeRoom.key
     };
 
-
-
-  // this.messagesRef.push(newMessage);
-
+   this.messagesRef.push(newMessage);
 
   }
 
-//  componentDidMount() {
-  //  this.updateMessages(this.props.activeRoom.key);
-  //}
+  componentDidMount() {
+    this.updateMessages(this.props.activeRoom.key);
+  }
 
   componentWillReceiveProps(nextProps) {
     this.updateMessages(nextProps.activeRoom.key);
@@ -73,9 +70,10 @@ class MessageList extends Component  { //  creating a messagelist class componen
       this.setState({ messages: messages });
     });
   }
-  //componentWillReceiveProps(nextProps) { //updates when we receive props
-    //this.setState({ messages: [] });
-//    let messages = [];
+
+//  componentWillReceiveProps(nextProps) { //updates when we receive props
+  //  this.setState({ messages: [] });
+    //let messages = [];
 
 
 
