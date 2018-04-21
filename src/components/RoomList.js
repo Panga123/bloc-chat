@@ -12,6 +12,14 @@ class RoomList extends Component { //  creating a roomlist class component, and 
 
   }
 
+  componentDidMount() {
+    this.roomsRef.on('child_added', snapshot => {
+      const room = snapshot.val();
+      room.key = snapshot.key;
+      this.setState({ rooms: this.state.rooms.concat( room ) })
+    });
+  }
+
 
   getNameChange(e) {
     this.setState({ newRoomName: e.target.value });
@@ -64,13 +72,7 @@ class RoomList extends Component { //  creating a roomlist class component, and 
   }
 
 
-  componentDidMount() {
-    this.roomsRef.on('child_added', snapshot => {
-      const room = snapshot.val();
-      room.key = snapshot.key;
-      this.setState({ rooms: this.state.rooms.concat( room ) })
-    });
-  }
+
 
 
 }
