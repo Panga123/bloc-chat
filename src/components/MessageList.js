@@ -53,9 +53,9 @@ class MessageList extends Component  { //  creating a messagelist class componen
 
   }
 
-  componentDidMount() {
-    this.updateMessages(this.props.activeRoom.key);
-  }
+//  componentDidMount() {
+  //  this.updateMessages(this.props.activeRoom.key);
+  //}
 
   componentWillReceiveProps(nextProps) {
     this.updateMessages(nextProps.activeRoom.key);

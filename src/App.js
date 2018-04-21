@@ -28,6 +28,18 @@ class App extends Component {
     }
   }
 
+componentWillMount() {
+  console.log ("will mount!");
+}
+
+componentDidMount() {
+  console.log ("did mount!");
+}
+
+componentWillReceiveProps() {
+  console.log ("will receive props!");
+}
+
   getMessageChange(newMessage) {
     this.setState(
       { currentMessage: newMessage },
