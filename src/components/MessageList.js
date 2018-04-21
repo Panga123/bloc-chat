@@ -48,30 +48,48 @@ class MessageList extends Component  { //  creating a messagelist class componen
 
 
 
-    this.messagesRef.push(newMessage);
+  // this.messagesRef.push(newMessage);
 
 
   }
 
+  componentDidMount() {
+    this.updateMessages(this.props.activeRoom.key);
+  }
 
+  componentWillReceiveProps(nextProps) {
+    this.updateMessages(nextProps.activeRoom.key);
+  }
 
-  componentWillReceiveProps(nextProps) { //updates when we receive props
-    //this.setState({ messages: [] });
+  updateMessages(key) {
     let messages = [];
-
-
-
-    if (nextProps.activeRoom.key) {
-      this.messagesRef.orderByChild('roomId').equalTo(nextProps.activeRoom.key).on("child_added", snapshot => {
-        console.log(snapshot.val());
-        const message = snapshot.val();
-        message.key = snapshot.key;
-        messages.push(message);
-        this.setState({ messages: messages });
-      }); //search by room ID and find the id that equals this and do the following
-    }
-
+    // move your listener here
+    this.setState({ messages: [] });
+    this.messagesRef.orderByChild('roomId').equalTo(key).on("child_added", snapshot => {
+      console.log(snapshot.val());
+      const message = snapshot.val();
+      message.key = snapshot.key;
+      messages.push(message);
+      this.setState({ messages: messages });
+    });
   }
+  //componentWillReceiveProps(nextProps) { //updates when we receive props
+    //this.setState({ messages: [] });
+//    let messages = [];
+
+
+
+  //  if (nextProps.activeRoom.key) {
+    //  this.messagesRef.orderByChild('roomId').equalTo(nextProps.activeRoom.key).on("child_added", snapshot => {
+      //  console.log(snapshot.val());
+        //const message = snapshot.val();
+        //message.key = snapshot.key;
+        //messages.push(message);
+        //this.setState({ messages: messages });
+      //}); //search by room ID and find the id that equals this and do the following
+  //  }
+
+  //}
 
   //1. Render a form to manually submit new message
   render() {
